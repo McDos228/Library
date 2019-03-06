@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "db-create": "node ./scripts/db-create.js",
+    "db-migrate-generate": "node_modules/.bin/sequelize migration:generate --name init",
+    "db-migrate-up": "node_modules/.bin/sequelize db:migrate",
+    "db-migrate-down": "node_modules/.bin/sequelize db:migrate:undo",
+    "db-migrate-down-all": "node_modules/.bin/sequelize db:migrate:undo:all"
   },
   "keywords": [],
   "author": "",
