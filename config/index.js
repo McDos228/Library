@@ -1,5 +1,5 @@
 module.exports = {
-    port: process.env.PORT || 8081,
+    port: process.env.PORT || 4200,
     secret : 'cool-library-secret-key',
     env: process.env.NODE_ENV || 'development',
     database: {

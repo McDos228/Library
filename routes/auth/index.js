@@ -1,5 +1,5 @@
 const express = require('express');
-// const authService = require('../../services').authService;
+const authService = require('../../services').authService;
 // const initToken = require('../../auth').AppleToken().initToken();
 const appleToken = require('../../auth').AppleToken;
 
@@ -55,7 +55,6 @@ module.exports = express.Router()
             const newUser = await authService.register(req.body);
             res.json({username : newUser.username})
         } catch (error) {
-            logger.log(error)
             next(error)
         }
     })
