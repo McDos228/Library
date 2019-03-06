@@ -60,15 +60,15 @@ module.exports = express.Router()
         }
     })
 
-    // .get('/logout', async(req, res, next)=>{
-    //     try {
-    //         if(!req.headers.token) next({message:'token required to be logged out'})
-    //         const logout = await authService.logout(req.headers.token);
-    //         res.json(logout)
-    //     } catch (error) {
-    //         next(error)
-    //     }
-    // })
+    .get('/logout', async(req, res, next)=>{
+        try {
+            if(!req.headers.token) next({message:'token required to be logged out'})
+            const logout = await authService.logout(req.headers.token);
+            res.json(logout)
+        } catch (error) {
+            next(error)
+        }
+    })
 
     // .get('/token', async(req, res, next)=>{
     //     appleToken.initAppleToken()
