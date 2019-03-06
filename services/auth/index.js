@@ -5,9 +5,9 @@ const config = require('../../config/index');
 const { User, Token }  = require('../../models');
 
 class Auth {
-    static async login({username, password}){
+    static async login({username, password, email}){
         try {
-            const user = await User.findOne({where: {username}});
+            const user = await User.findOne({where: {email}});
             if(!user) throw {message : 'no user found'}
             if(bcrypt.compareSync(password, user.password)){
                 const userToken = await Token.find({where:{userId: user.id}});                
@@ -15,6 +15,7 @@ class Auth {
                 let token = jwt.sign({
                     userId: user.dataValues.id,
                     username : username,
+                    role : user.dataValues.role
                 }, config.secret)
                 await Token.create({
                     userId : user.id,
@@ -33,7 +34,8 @@ class Auth {
             const user = await User.create({
                 username : username,
                 password : pass,
-                email : email
+                email : email,
+                role : 'user'
             });
             if (!user) throw {message :'Error while signing up'}
             return user;

@@ -1,3 +1,5 @@
 module.exports = {
-    authService : require('./auth')
+    authService : require('./auth'),
+    adminService : require('./admin'),
+    bookSerivce : require('./book')
 }

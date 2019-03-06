@@ -1,8 +1,8 @@
 const express = require('express');
 const auth = require('./auth');
 const AuthHelper = require('../auth');
-// const playlist = require('./playlist');
+const admin = require('./admin');
 
 module.exports = express.Router()
     .use('/auth', auth)
-    // .use('/playlist', AuthHelper.isAuth, playlist)
+    .use('/admin', AuthHelper.isAuth, AuthHelper.isAdmin, admin)

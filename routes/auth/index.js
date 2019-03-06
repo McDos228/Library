@@ -1,7 +1,5 @@
 const express = require('express');
 const authService = require('../../services').authService;
-// const initToken = require('../../auth').AppleToken().initToken();
-const appleToken = require('../../auth').AppleToken;
 
 module.exports = express.Router()
     .post('/login', async(req, res, next)=>{
@@ -29,7 +27,6 @@ module.exports = express.Router()
                 token
             })
         } catch (error) {
-            logger.log(error)
             next(error)
         }
     })
@@ -51,7 +48,7 @@ module.exports = express.Router()
          
             // const errors = req.validationErrors();
             // if(errors) return next({message: errors.map(error=> error.msg).join()});
-            // logger.log(req.body, 'register')
+
             const newUser = await authService.register(req.body);
             res.json({username : newUser.username})
         } catch (error) {
@@ -68,8 +65,3 @@ module.exports = express.Router()
             next(error)
         }
     })
-
-    // .get('/token', async(req, res, next)=>{
-    //     appleToken.initAppleToken()
-    //     res.json(appleToken.getAppleToken())
-    // })
