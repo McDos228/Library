@@ -1,7 +1,8 @@
 const express = require('express');
-// const authService = require('../../services').authService;
+const bookSerivce = require('../../services').bookSerivce;
+
 
 module.exports = express.Router()
-    .get('/book/list', async(req, res, next)=>{
-
+    .get('/list', async(req, res, next)=>{
+        res.json(await bookSerivce.getBooks())
     })

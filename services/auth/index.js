@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const config = require('../../config/index');
-const { User, Token }  = require('../../models');
+const { User }  = require('../../models');
 
 class Auth {
     static async login({username, password, email}){
@@ -10,17 +10,11 @@ class Auth {
             const user = await User.findOne({where: {email}});
             if(!user) throw {message : 'no user found'}
             if(bcrypt.compareSync(password, user.password)){
-                const userToken = await Token.find({where:{userId: user.id}});                
-                if(userToken) return userToken.dataValues
                 let token = jwt.sign({
                     userId: user.dataValues.id,
                     username : username,
                     role : user.dataValues.role
                 }, config.secret)
-                await Token.create({
-                    userId : user.id,
-                    token
-                })
                 return {token}
             }      
         } catch (error) {

@@ -1,11 +1,15 @@
 const express = require('express');
 const adminService = require('../../services').adminService;
+const fileService = require('../../services/files');
+const path = require('path');
 
 module.exports = express.Router()
 
     .post('/add/book', async(req, res, next)=>{
         try {
-            const newBook = await adminService.addBook(req.body);
+            const parsedBook = await fileService.promisifyUpload(req);
+            // console.log(parsedBook.fields, 'parsedBook')
+            const newBook = await adminService.addBook(parsedBook.fields);
             res.json(newBook)
         } catch (error) {
             next(error)
