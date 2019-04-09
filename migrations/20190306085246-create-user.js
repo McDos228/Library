@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
         type : Sequelize.STRING
       }
-    });
+    }, {timestemps : false});
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Users');

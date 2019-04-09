@@ -3,11 +3,17 @@ const mv = require('mv');
 const path = require('path');
 const multiparty = require('multiparty');
 
-const promisifyUpload = (req) => new Promise((resolve, reject) => {
+promisifyUpload = (req, next) => new Promise((resolve, reject) => {
     const form = new multiparty.Form();
 
-    form.parse(req, function(err, fields, files) {
+    form.parse(req, (err, fields = {}, files= {})=> {
 		if (err) return reject(err);
+
+		if(!fields.title) return next({message :'no book title found'})
+		if(!files.book) return next({message :'no book upload'})
+		if(!files.art) return next({message :'no art upload'})
+		if(!fields.author) return next({message :'no author found'})
+
 		let title = fields.title[0];
 		let bookExt = path.extname(files.book[0].originalFilename);
 		let artExt = path.extname(files.art[0].originalFilename);
@@ -32,44 +38,16 @@ const promisifyUpload = (req) => new Promise((resolve, reject) => {
     });
 });
 
-
-// storeFile = (req, res, next) => {
-// 	const form = new multiparty.Form();
-// 	return form.parse(req, (err, fields, files) => {
-// 		console.log(fields.title[0])
-// 		let title = fields.title[0];
-// 		let author = fields.author[0];
-// 		let ext = path.extname(files.file[0].originalFilename);
-// 		let link = path.join(`${__dirname}/../../../uploads/${title}${ext}`);
-		
-// 		// console.log(fields)
-// 		return {title, author, link};
-// 	})
-// };
-
-// createFile = (text, link) => {
-// 	return new Promise((resolve, reject) => {
-// 		fs.appendFile(utils.filePath(link), text, err => {
-// 			if (err) {
-// 				reject(err);
-// 			}
-// 		});
-// 		resolve({ message: 'Task successfully created' });
-// 	});
-// };
-
-// deleteLocalFile = link => {
-// 	return new Promise((resolve, reject) => {
-// 		fs.unlink(link, err => {
-// 			if (err) reject(err);
-// 		});
-// 		resolve({ message: 'Task successfully deleted' });
-// 	});
-// };
+deleteFile = link => {
+	return new Promise((resolve, reject) => {
+		fs.unlink(link, err => {
+			if (err) reject(err);
+		});
+		resolve({ message: 'Task successfully deleted' });
+	});
+};
 
 module.exports = {
-	// storeFile,
-	// createFile
-	promisifyUpload
-	// deleteLocalFile
+	promisifyUpload,
+	deleteFile
 };

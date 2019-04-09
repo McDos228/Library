@@ -14,7 +14,7 @@ class Auth {
                     userId: user.dataValues.id,
                     username : username,
                     role : user.dataValues.role
-                }, config.secret)
+                }, config.secret, { expiresIn: '1w' })
                 return {token}
             }      
         } catch (error) {
@@ -33,20 +33,6 @@ class Auth {
             });
             if (!user) throw {message :'Error while signing up'}
             return user;
-        } catch (error) {
-            throw error
-        }
-    }
-
-    static async logout(token){
-        try {
-            const loggedout = await Token.destroy({
-                where: {
-                    token
-                }
-            })
-            if(!loggedout) throw {message: 'you already logged out'}
-            return {msg:'you are logged out', loggedout}
         } catch (error) {
             throw error
         }

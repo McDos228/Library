@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     role : DataTypes.STRING
   }, { timestamps: false });
-  User.associate = (models)=> {
+  User.associate = ({Favorite})=> {
+    User.hasMany(Favorite, {foreignKey: 'userId'})
   };
   return User;
 };

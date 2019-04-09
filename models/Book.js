@@ -6,15 +6,22 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    title: DataTypes.STRING,
+    title: {
+      allowNull : false,
+      type : DataTypes.STRING
+    },
     author: DataTypes.STRING,
-    link: DataTypes.STRING,
+    link: {
+      allowNull : false,
+      type : DataTypes.STRING
+    },
     ganres: DataTypes.STRING,
     art: DataTypes.STRING,
-    pages: DataTypes.INTEGER
+    pages: DataTypes.INTEGER,
+    desc : DataTypes.STRING
   }, { timestamps: false });
-  Book.associate = function(models) {
-    // associations can be defined here
+  Book.associate = ({Favorite})=> {
+    Book.hasOne(Favorite, {foreignKey: 'id'})
   };
   return Book;
 };

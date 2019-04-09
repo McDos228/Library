@@ -26,7 +26,7 @@ module.exports = {
       pages: {
         type: Sequelize.INTEGER
       }
-    });
+    }, {timestemps : false});
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Books');

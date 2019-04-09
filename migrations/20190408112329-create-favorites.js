@@ -1,22 +1,21 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Tokens', {
+    return queryInterface.createTable('Favorites', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      token: {
-        type: Sequelize.STRING
-      },
       userId: {
         type: Sequelize.INTEGER
+      },
+      bookId: {
+        type: Sequelize.INTEGER
       }
-    });
+    }, {});
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Tokens');
+    return queryInterface.dropTable('Favorites');
   }
 };
