@@ -20,13 +20,14 @@ promisifyUpload = (req, next) => new Promise((resolve, reject) => {
 		let bookLink = path.join(`uploads/book/${title}-${Date.now()}${bookExt}`);
 		let artLink = path.join(`uploads/arts/${title}-art-${Date.now()}${artExt}`);
 
-		mv(files.book[0].path, bookLink, err => {
-			if (err) throw err;
-		});
+		const links = [];
+		links.push({tmpPath : files.book[0].path, link : bookLink}, {tmpPath : files.art[0].path, link : artLink})
 
-		mv(files.art[0].path, artLink, err => {
-			if (err) throw err;
-		});
+		for(linkObj of links) {
+			mv(linkObj.tmpPath, linkObj.link, err => {
+				if (err) throw err;
+			});
+		}
 
 		let res = {
 			...files,
@@ -38,11 +39,13 @@ promisifyUpload = (req, next) => new Promise((resolve, reject) => {
     });
 });
 
-deleteFile = link => {
+deleteFile = links => {
 	return new Promise((resolve, reject) => {
-		fs.unlink(link, err => {
-			if (err) reject(err);
-		});
+		for (const link of links) {
+			fs.unlink(link, err => {
+				if (err) reject(err);
+			});
+		}		
 		resolve({ message: 'Task successfully deleted' });
 	});
 };

@@ -28,7 +28,7 @@ class BookService {
 
     static async getBookDetails({bookId}){
         try {
-            return await Book.find({
+            return await Book.findOne({
                 where : {id : bookId}
             });    
         } catch (error) {

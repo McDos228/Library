@@ -17,13 +17,14 @@ module.exports = express.Router()
     .delete('/delete/book', async(req, res,next)=>{
         try {
             const deleteBook = await adminService.deleteBook({...req.body});
-            fileService.deleteFile(re.body.link);
+            const links = [];
+            links.push(req.body.link, req.body.art)
+            fileService.deleteFile(links);
             res.json(deleteBook)
         } catch (error) {
             next(error)
         }
     })
-
     
     .put('/update/book', async(req, res, next)=>{
         try {

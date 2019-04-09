@@ -3,12 +3,13 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const config = require('./config');
 const routes = require('./routes/index');
-// const cors = require('cors');
+const cors = require('cors');
 const app = express();
 const server = http.createServer(app);
 
-// app.use(cors());
+app.use(cors());
 // app.use(expressValidator());
+app.use(express.static(__dirname + '/uploads'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

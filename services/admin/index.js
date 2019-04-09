@@ -4,18 +4,18 @@ class Admin {
 
     static async addBook({title, author, bookLink, pages, artLink, ganres, desc}){
         try {
-
-            const book = await Book.findOne({where:{title : title.toLowerCase(), author}})
+            let _title = title[0].toLowerCase();
+            const book = await Book.findOne({where:{title : _title}})
             if(book) throw {message: 'this book already added to db'}
 
             const newBook = await Book.create({
-                title : title[0].toLowerCase(),
+                title : _title,
                 author : author[0],
                 link : bookLink,
                 art : artLink,
                 pages : pages[0],
                 ganres : JSON.stringify(ganres),
-                desc
+                desc : desc[0]
             })
             return newBook
         } catch (error) {
@@ -26,8 +26,9 @@ class Admin {
     static async deleteBook({id}){
         try {
             const deletedBook = await Book.destroy({
-                where : {id}
-            }, {returning : true})
+                where : {id},
+                returning : true
+            })
             return deletedBook
         } catch (error) {
             throw error

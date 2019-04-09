@@ -12,8 +12,12 @@ module.exports = express.Router()
     })
 
     .get('/favorites/add', async(req, res, next)=>{
-        const favorites = await bookSerivce.addFavorites({bookId : req.query.bookId, userId : req.user.userId});
-        res.json(favorites)
+        try {
+            const favorites = await bookSerivce.addFavorites({bookId : req.query.bookId, userId : req.user.userId});
+            res.json(favorites)            
+        } catch (error) {
+            next(error)
+        }
     })
 
     .get('/favorites', async(req, res, next)=>{
