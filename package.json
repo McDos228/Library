@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start" : "node server.js",
     "dev": "nodemon server.js",
     "db-create": "node ./scripts/db-create.js",
     "db-migrate-generate": "node_modules/.bin/sequelize migration:generate --name init",
