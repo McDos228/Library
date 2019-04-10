@@ -10,6 +10,7 @@ const server = http.createServer(app);
 app.use(cors());
 // app.use(expressValidator());
 app.use(express.static(__dirname + '/uploads'));
+app.use(express.static('/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
