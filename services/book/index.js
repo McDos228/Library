@@ -15,7 +15,7 @@ class BookService {
     
     static async addFavorites({userId, bookId}){
         try {
-            const favoriteBook = await Favorite.findOne({where:{userId, bookId}})
+            const favoriteBook = await Favorite.findOne({where:{userId, bookId}});
             if(favoriteBook) return {message : 'this book is already in your favorites'}
             return await Favorite.create({
                 userId,

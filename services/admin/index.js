@@ -1,4 +1,5 @@
 const { User, Book }  = require('../../models');
+const path = require('path');
 
 class Admin {
 
@@ -11,8 +12,8 @@ class Admin {
             const newBook = await Book.create({
                 title : _title,
                 author : author[0],
-                link : bookLink,
-                art : artLink,
+                link : path.join(`${__dirname}/../../${bookLink}`),
+                art : path.join(`${__dirname}/../../${artLink}`),
                 pages : pages[0],
                 ganres : JSON.stringify(ganres),
                 desc : desc[0]
