@@ -12,6 +12,9 @@
     "db-migrate-down": "node_modules/.bin/sequelize db:migrate:undo",
     "db-migrate-down-all": "node_modules/.bin/sequelize db:migrate:undo:all"
   },
+  "engines": {
+    "node": "10.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
