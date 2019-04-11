@@ -8,7 +8,7 @@ const app = express();
 const server = http.createServer(app);
 
 var corsOptions = {
-    origin: 'https://cool-lib-back.herokuapp.com/',
+    origin: 'https://localhost:3000',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
