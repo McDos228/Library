@@ -7,12 +7,17 @@ const cors = require('cors');
 const app = express();
 const server = http.createServer(app);
 
-app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    next()
-})
-// app.use(cors());
+var corsOptions = {
+    origin: 'https://cool-lib-back.herokuapp.com/',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+
+// app.use(function (req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*')
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+//     next()
+// })
+app.use(cors(corsOptions));
 // app.use(expressValidator());
 app.use(express.static(__dirname + '/uploads'));
 app.use(bodyParser.json());
