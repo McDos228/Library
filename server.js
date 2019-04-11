@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', routes);
 
+app.get('/', (req, res) => res.render('index'))
+
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.json({
