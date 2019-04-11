@@ -10,13 +10,10 @@ const server = http.createServer(app);
 app.use(cors());
 // app.use(expressValidator());
 app.use(express.static(__dirname + '/uploads'));
-app.use(express.static('/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', routes);
-
-app.get('/', (req, res) => res.render('index'))
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
