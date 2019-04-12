@@ -7,23 +7,23 @@ const cors = require('cors');
 const app = express();
 const server = http.createServer(app);
 
-var whitelist = ['http://localhost:3000', 'http://example2.com']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
+// var whitelist = ['http://localhost:3000', 'http://example2.com']
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
 
 // app.use(function (req, res, next) {
 //     res.header('Access-Control-Allow-Origin', '*')
 //     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
 //     next()
 // })
-app.use(cors(corsOptions));
+app.use(cors());
 // app.use(expressValidator());
 app.use(express.static(__dirname + '/uploads'));
 app.use(bodyParser.json());
