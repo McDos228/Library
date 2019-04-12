@@ -1,0 +1,10 @@
+{
+    "root": "uploads/",
+    "clean_urls": true,
+    "routes": {
+        "/*.pdf": "/",
+        "/*.png": "/",
+        "/*.jpg": "/",
+        "/*.jepg": "/"
+    }
+}
