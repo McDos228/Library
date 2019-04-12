@@ -12,7 +12,7 @@ class Auth {
             if(bcrypt.compareSync(password, user.password)){
                 let token = jwt.sign({
                     userId: user.dataValues.id,
-                    username : username,
+                    username,
                     role : user.dataValues.role
                 }, config.secret, { expiresIn: '1w' })
                 return {token}

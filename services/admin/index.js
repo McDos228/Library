@@ -5,10 +5,20 @@ class Admin {
 
     static async addBook({title, author, bookLink, pages, artLink, ganres, desc}){
         try {
+            console.log(pages)
             let _title = title[0].toLowerCase();
             const book = await Book.findOne({where:{title : _title}})
             if(book) throw {message: 'this book already added to db'}
-
+            let obj = {
+                title : _title,
+                author : author[0],
+                link : path.join(`${__dirname}/../../${bookLink}`),
+                art : path.join(`${__dirname}/../../${artLink}`),
+                pages : pages[0],
+                ganres : JSON.stringify(ganres),
+                desc : desc[0]
+            }
+            console.log(obj, 'create obj')
             const newBook = await Book.create({
                 title : _title,
                 author : author[0],
@@ -20,6 +30,7 @@ class Admin {
             })
             return newBook
         } catch (error) {
+            console.log(error, 'dsada')
             throw error
         }
     }

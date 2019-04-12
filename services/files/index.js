@@ -9,6 +9,8 @@ promisifyUpload = (req, next) => new Promise((resolve, reject) => {
     form.parse(req, (err, fields = {}, files= {})=> {
 		if (err) return reject(err);
 
+		console.log(fields)
+
 		if(!fields.title) return next({message :'no book title found'})
 		if(!files.book) return next({message :'no book upload'})
 		if(!files.art) return next({message :'no art upload'})
@@ -25,7 +27,7 @@ promisifyUpload = (req, next) => new Promise((resolve, reject) => {
 
 		for(linkObj of links) {
 			mv(linkObj.tmpPath, linkObj.link, err => {
-				if (err) throw err;
+				if (err) reject(err);
 			});
 		}
 
