@@ -19,6 +19,8 @@ app.use(express.static(path.join(__dirname + '/uploads')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+console.log(path.join(__dirname + '/uploads'), 'path');
+
 app.use('/api', routes);
 
 app.use((err, req, res, next) => {
