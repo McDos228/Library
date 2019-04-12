@@ -27,6 +27,8 @@ promisifyUpload = (req, next) => new Promise((resolve, reject) => {
 
 		for(linkObj of links) {
 			mv(linkObj.tmpPath, linkObj.link, err => {
+				console.log(linkObj)
+				console.log(err, 'errrrrrrrors')
 				if (err) reject(err);
 			});
 		}
